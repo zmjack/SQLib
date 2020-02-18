@@ -28,12 +28,10 @@
 从 **SqlScope** 构建数据访问器：
 
 ```c#
-public class ApplicationDbScope
-    : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
+public class ApplicationDbScope : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
 {
     public const string CONNECT_STRING = "filename=sqlplus.db";
-    public static ApplicationDbScope UseDefault()
-    	=> new ApplicationDbScope(new SqliteConnection(CONNECT_STRING));
+    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(new SqliteConnection(CONNECT_STRING));
 
     public ApplicationDbScope(SqliteConnection model) : base(model) { }
 }
