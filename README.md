@@ -7,7 +7,7 @@
 
 <br/>
 
-## 使用说明
+## instructions
 
 ### 0. Refer to the database provider
 
