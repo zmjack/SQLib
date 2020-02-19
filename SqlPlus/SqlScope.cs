@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace SqlPlus
 {
@@ -172,15 +173,7 @@ namespace SqlPlus
             var sql = formattableSql.Format;
             var cmd = new TDbCommand
             {
-                CommandText = formattableSql.ArgumentCount.For(count =>
-                {
-                    if (count > 0)
-                    {
-                        for (int i = 0; i < count; i++)
-                            sql = sql.Replace($"{{{i}}}", $"@p{i}");
-                    }
-                    return sql;
-                }),
+                CommandText = string.Format(formattableSql.Format, args.Select((v, i) => $"@p{i}").ToArray()),
                 Connection = Connection,
                 Transaction = transaction,
             };

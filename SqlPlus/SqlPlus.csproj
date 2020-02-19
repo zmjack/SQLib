@@ -12,7 +12,7 @@
     <PackageTags>sql query parameterize</PackageTags>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
     <PackageProjectUrl>https://github.com/zmjack/SqlPlus</PackageProjectUrl>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
