@@ -9,12 +9,10 @@ namespace SqlPlus.Test
 {
     public class SqlScopeTests
     {
-        private static readonly Lock SqlScopeTestsLock = new Lock();
-
         [Fact]
         public void Test1()
         {
-            using (SqlScopeTestsLock.Begin())
+            using (Test.MutexLock.Begin())
             using (var sqlite = ApplicationDbScope.UseDefault())
             {
                 var creationTime = DateTime.Now;
@@ -42,7 +40,7 @@ DELETE FROM main;
         [Fact]
         public void InjectionTest()
         {
-            using (SqlScopeTestsLock.Begin())
+            using (Test.MutexLock.Begin())
             using (var sqlite = ApplicationDbScope.UseDefault())
             {
                 var creationTime = DateTime.Now;
