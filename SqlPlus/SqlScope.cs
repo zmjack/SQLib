@@ -43,44 +43,41 @@ namespace SqlPlus
             return new TransactionScope<TSelf, TDbConnection, TDbCommand, TDbParameter>(Connection.BeginTransaction());
         }
 
-        [Obsolete("SQL injection may be triggered using this method.")]
-        public int UnsafeSql(string sql) => UnsafeSql(CurrentTransaction, sql);
-        [Obsolete("SQL injection may be triggered using this method.")]
-        public int UnsafeSql(DbTransaction transaction, string sql)
+        public int UnsafeSql(string sql, TDbParameter[] parameters = null) => UnsafeSql(CurrentTransaction, sql, parameters);
+        public int UnsafeSql(DbTransaction transaction, string sql, TDbParameter[] parameters = null)
         {
-            var command = UnsafeSqlCommand(transaction, sql);
+            var command = new TDbCommand
+            {
+                Transaction = transaction,
+                CommandText = sql,
+                Connection = Connection,
+            };
+            if (parameters != null) command.Parameters.AddRange(parameters);
+
             var ret = command.ExecuteNonQuery();
             OnExecuted?.Invoke(command);
             return ret;
         }
-
-        public int Sql(string sql, TDbParameter[] parameters) => Sql(CurrentTransaction, sql, parameters);
-        public int Sql(DbTransaction transaction, string sql, TDbParameter[] parameters)
-        {
-            var command = SqlCommand(transaction, sql, parameters);
-            var ret = command.ExecuteNonQuery();
-            OnExecuted?.Invoke(command);
-            return ret;
-        }
-
         public int Sql(FormattableString formattableSql) => Sql(CurrentTransaction, formattableSql);
         public int Sql(DbTransaction transaction, FormattableString formattableSql)
         {
-            var command = SqlCommand(transaction, formattableSql);
-            var ret = command.ExecuteNonQuery();
-            OnExecuted?.Invoke(command);
-            return ret;
+            var safeSql = new SafeSql<TDbParameter>(formattableSql);
+            return UnsafeSql(transaction, safeSql.Sql, safeSql.Parameters);
         }
 
-        [Obsolete("SQL injection may be triggered using this method.")]
-        public Dictionary<string, object>[] UnsafeSqlQuery(string sql) => UnsafeSqlQuery(CurrentTransaction, sql);
-        [Obsolete("SQL injection may be triggered using this method.")]
-        public Dictionary<string, object>[] UnsafeSqlQuery(DbTransaction transaction, string sql)
+        public Dictionary<string, object>[] UnsafeSqlQuery(string sql, TDbParameter[] parameters = null) => UnsafeSqlQuery(CurrentTransaction, sql, parameters);
+        public Dictionary<string, object>[] UnsafeSqlQuery(DbTransaction transaction, string sql, TDbParameter[] parameters = null)
         {
             var ret = new List<Dictionary<string, object>>();
-            var command = UnsafeSqlCommand(transaction, sql);
-            var reader = command.ExecuteReader();
+            var command = new TDbCommand
+            {
+                Transaction = transaction,
+                CommandText = sql,
+                Connection = Connection,
+            };
+            if (parameters != null) command.Parameters.AddRange(parameters);
 
+            var reader = command.ExecuteReader();
             while (reader.Read())
             {
                 var dict = new Dictionary<string, object>();
@@ -93,119 +90,11 @@ namespace SqlPlus
 
             return ret.ToArray();
         }
-
-        public Dictionary<string, object>[] SqlQuery(string sql, TDbParameter[] parameters) => SqlQuery(CurrentTransaction, sql, parameters);
-        public Dictionary<string, object>[] SqlQuery(DbTransaction transaction, string sql, TDbParameter[] parameters)
-        {
-            var ret = new List<Dictionary<string, object>>();
-            var command = SqlCommand(transaction, sql, parameters);
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                var dict = new Dictionary<string, object>();
-                foreach (var i in new int[reader.FieldCount].Let(i => i))
-                    dict[reader.GetName(i)] = reader.GetValue(i);
-                ret.Add(dict);
-            }
-            reader.Close();
-            OnExecuted?.Invoke(command);
-
-            return ret.ToArray();
-        }
-
         public Dictionary<string, object>[] SqlQuery(FormattableString formattableSql) => SqlQuery(CurrentTransaction, formattableSql);
         public Dictionary<string, object>[] SqlQuery(DbTransaction transaction, FormattableString formattableSql)
         {
-            var ret = new List<Dictionary<string, object>>();
-            var command = SqlCommand(transaction, formattableSql);
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                var dict = new Dictionary<string, object>();
-                foreach (var i in new int[reader.FieldCount].Let(i => i))
-                    dict[reader.GetName(i)] = reader.GetValue(i);
-                ret.Add(dict);
-            }
-            reader.Close();
-            OnExecuted?.Invoke(command);
-
-            return ret.ToArray();
-        }
-
-        [Obsolete("SQL injection may be triggered using this method.")]
-        [SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "<Pending>")]
-        protected TDbCommand UnsafeSqlCommand(DbTransaction transaction, string sql)
-        {
-            var cmd = new TDbCommand
-            {
-                CommandText = sql,
-                Connection = Connection,
-                Transaction = transaction,
-            };
-            return cmd;
-        }
-
-        [SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "<Pending>")]
-        protected TDbCommand SqlCommand(DbTransaction transaction, string sql, TDbParameter[] parameters)
-        {
-            var cmd = new TDbCommand
-            {
-                CommandText = sql,
-                Connection = Connection,
-                Transaction = transaction,
-            };
-
-            if (parameters != null)
-            {
-                for (int i = 0; i < parameters.Length; i++)
-                    cmd.Parameters.Add(parameters[i]);
-            }
-
-            return cmd;
-        }
-
-        [SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "<Pending>")]
-        protected TDbCommand SqlCommand(DbTransaction transaction, FormattableString formattableSql)
-        {
-            var args = formattableSql.GetArguments();
-            var sql = formattableSql.Format;
-            var cmd = new TDbCommand
-            {
-                CommandText = string.Format(formattableSql.Format, args.Select((v, i) => $"@p{i}").ToArray()),
-                Connection = Connection,
-                Transaction = transaction,
-            };
-
-            for (int i = 0; i < formattableSql.ArgumentCount; i++)
-            {
-                cmd.Parameters.Add(new TDbParameter().Then(x =>
-                {
-                    x.ParameterName = $"@p{i}";
-                    x.Value = args[i];
-                    x.DbType = args[i].For(value => value.GetType() switch
-                    {
-                        Type type when type == typeof(bool) => DbType.Boolean,
-                        Type type when type == typeof(byte) => DbType.Byte,
-                        Type type when type == typeof(sbyte) => DbType.SByte,
-                        Type type when type == typeof(char) => DbType.Byte,
-                        Type type when type == typeof(short) => DbType.Int16,
-                        Type type when type == typeof(ushort) => DbType.UInt16,
-                        Type type when type == typeof(int) => DbType.Int32,
-                        Type type when type == typeof(uint) => DbType.UInt32,
-                        Type type when type == typeof(long) => DbType.Int64,
-                        Type type when type == typeof(ulong) => DbType.UInt64,
-                        Type type when type == typeof(float) => DbType.Single,
-                        Type type when type == typeof(double) => DbType.Double,
-                        Type type when type == typeof(string) => DbType.String,
-                        Type type when type == typeof(decimal) => DbType.Decimal,
-                        Type type when type == typeof(DateTime) => DbType.DateTime,
-                        _ => DbType.Object,
-                    });
-                }));
-            }
-            return cmd;
+            var safeSql = new SafeSql<TDbParameter>(formattableSql);
+            return UnsafeSqlQuery(transaction, safeSql.Sql, safeSql.Parameters);
         }
 
     }

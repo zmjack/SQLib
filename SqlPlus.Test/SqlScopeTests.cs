@@ -55,7 +55,7 @@ DELETE FROM main;
                 var count = sqlite.UnsafeSqlQuery("SELECT * FROM main WHERE Text='" + text + "';").Length;
                 Assert.True(count > 0);
 
-                sqlite.Sql($"DELETE FROM main;");
+                sqlite.UnsafeSql($"DELETE FROM main;");
 
                 Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
 SELECT * FROM main WHERE Text='' or 1 or '';

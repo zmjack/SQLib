@@ -6,6 +6,7 @@ using SqlPlusApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace SqlPlusApp
@@ -15,13 +16,13 @@ namespace SqlPlusApp
         static void Main(string[] args)
         {
             var regions = new[]
-            {
+{
                 QueryRegion_Traditional(1),
                 QueryRegion_SqlPlus(1),
                 QueryRegion_EF(1),
             };
             regions.Dump();
-
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
             Console.WriteLine(regions.All(x => x == "Eastern"));
         }
 
@@ -54,7 +55,7 @@ namespace SqlPlusApp
         {
             using (var sqlite = new ApplicationDbScope(new SqliteConnection("filename=northwnd.db")))
             {
-                var region = sqlite.SqlQuery($"SELECT RegionDescription FROM Regions WHERE RegionId={regionId};").First();
+                var region = sqlite.SqlQuery((FormattableString)$"SELECT RegionDescription FROM Regions WHERE RegionId={regionId};").First();
                 return region["RegionDescription"] as string;
             }
         }

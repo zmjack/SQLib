@@ -1,2 +1,2 @@
-nuget push "SqlPlus/bin/Release/SqlPlus.0.2.0.nupkg" -source nuget.org
+nuget push "SqlPlus/bin/Release/SqlPlus.0.2.1.nupkg" -source nuget.org
 pause
