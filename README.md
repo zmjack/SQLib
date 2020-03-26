@@ -114,7 +114,7 @@ var cmd = new SqliteCommand("SELECT * FROM main WHERE Text=@p0;", conn);
 cmd.Parameters.Add(new SqliteParameter
 {
     ParameterName = "@p0",
-    Value = regionId,
+    Value = text,
     DbType = DbType.String,
 });
 cmd.ExecuteNonQuery();
