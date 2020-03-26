@@ -102,7 +102,7 @@ sqlite.SqlQuery($"SELECT * FROM main WHERE Text={text};");
 ```sqlite
 SELECT * FROM main WHERE Text=@p0;
 /*
-	@p0 = "Hello";
+    @p0 = "Hello";
 */
 ```
 
