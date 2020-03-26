@@ -53,7 +53,7 @@ namespace SQLibApp
 
         static string QueryRegion_SQLib(int regionId)
         {
-            using (var sqlite = new ApplicationDbScope(new SqliteConnection("filename=northwnd.db")))
+            using (var sqlite = ApplicationDbScope.UseDefault())
             {
                 var region = sqlite.SqlQuery($"SELECT RegionDescription FROM Regions WHERE RegionId={regionId};").First();
                 return region["RegionDescription"] as string;
