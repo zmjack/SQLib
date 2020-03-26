@@ -106,6 +106,20 @@ SELECT * FROM main WHERE Text=@p0;
 */
 ```
 
+In the traditional way, is equal to
+
+```c#
+var text = "Hello";
+var cmd = new SqliteCommand("SELECT * FROM main WHERE Text=@p0;", conn);
+cmd.Parameters.Add(new SqliteParameter
+{
+    ParameterName = "@p0",
+    Value = regionId,
+    DbType = DbType.String,
+});
+cmd.ExecuteNonQuery();
+```
+
 <br/>
 
 ### SQL Injection

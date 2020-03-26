@@ -105,6 +105,19 @@ SELECT * FROM main WHERE Text=@p0;
 */
 ```
 
+在传统方法中，等同于
+
+```c#
+var text = "Hello";
+var cmd = new SqliteCommand("SELECT * FROM main WHERE Text=@p0;", conn);
+cmd.Parameters.Add(new SqliteParameter
+{
+    ParameterName = "@p0",
+    Value = regionId,
+    DbType = DbType.String,
+});
+cmd.ExecuteNonQuery();
+```
 <br/>
 
 ### SQL 注入
