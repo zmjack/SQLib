@@ -30,7 +30,7 @@ Build the data accessor from **SqlScope** (SQLite):
 ```c#
 public class ApplicationDbScope : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
 {
-    public const string CONNECTION_STRING = "filename=sqlplus.db";
+    public const string CONNECTION_STRING = "filename=sqlib.db";
     public static ApplicationDbScope UseDefault() => new ApplicationDbScope(new SqliteConnection(CONNECTION_STRING));
 
     public ApplicationDbScope(SqliteConnection conn) : base(conn) { }
