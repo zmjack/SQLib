@@ -5,15 +5,15 @@
     <LangVersion>8</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>zmjack</Authors>
-    <Description>SqlPlus is an automatic parameterized SQL authoring tool.</Description>
+    <Description>SQLib is an automatic parameterized SQL authoring tool.</Description>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/zmjack/SqlPlus</RepositoryUrl>
+    <RepositoryUrl>https://github.com/zmjack/SQLib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>sql query parameterize</PackageTags>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
-    <PackageProjectUrl>https://github.com/zmjack/SqlPlus</PackageProjectUrl>
-    <Version>0.2.1</Version>
-    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
+    <Version>0.3.0</Version>
+    <PackageIcon>sqlib.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
 
@@ -26,7 +26,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="icon.png">
+    <None Include="..\sqlib.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

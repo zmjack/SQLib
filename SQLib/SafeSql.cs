@@ -6,10 +6,9 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 
-namespace SqlPlus
+namespace SQLib
 {
-    public class SafeSql<TDbParameter>
-        where TDbParameter : DbParameter, new()
+    public class SafeSql<TDbParameter> where TDbParameter : DbParameter, new()
     {
         public string Sql;
         public TDbParameter[] Parameters;

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlPlus\SqlPlus.csproj" />
+    <ProjectReference Include="..\SQLib\SQLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

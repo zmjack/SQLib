@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
-namespace SqlPlus
+namespace SQLib
 {
     public class TransactionScope<TSqlScope, TDbConnection, TDbCommand, TDbParameter> : Scope<TransactionScope<TSqlScope, TDbConnection, TDbCommand, TDbParameter>>
         where TSqlScope : SqlScope<TSqlScope, TDbConnection, TDbCommand, TDbParameter>

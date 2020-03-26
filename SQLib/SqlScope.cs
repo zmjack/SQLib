@@ -6,7 +6,7 @@ using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace SqlPlus
+namespace SQLib
 {
     /// <summary>
     /// Easy to use and secure SQL Executor

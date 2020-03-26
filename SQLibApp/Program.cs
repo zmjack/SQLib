@@ -2,23 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using Northwnd;
 using NStandard;
-using SqlPlusApp.Data;
+using SQLibApp.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 
-namespace SqlPlusApp
+namespace SQLibApp
 {
     class Program
     {
         static void Main(string[] args)
         {
             var regions = new[]
-{
+            {
                 QueryRegion_Traditional(1),
-                QueryRegion_SqlPlus(1),
+                QueryRegion_SQLib(1),
                 QueryRegion_EF(1),
             };
             regions.Dump();
@@ -51,11 +51,11 @@ namespace SqlPlusApp
             return ret;
         }
 
-        static string QueryRegion_SqlPlus(int regionId)
+        static string QueryRegion_SQLib(int regionId)
         {
             using (var sqlite = new ApplicationDbScope(new SqliteConnection("filename=northwnd.db")))
             {
-                var region = sqlite.SqlQuery((FormattableString)$"SELECT RegionDescription FROM Regions WHERE RegionId={regionId};").First();
+                var region = sqlite.SqlQuery($"SELECT RegionDescription FROM Regions WHERE RegionId={regionId};").First();
                 return region["RegionDescription"] as string;
             }
         }

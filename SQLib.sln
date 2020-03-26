@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D9C017A0-C9FC-44F5-AC99-3CD83BBBCDFF}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		push.cmd = push.cmd
+		README-CN.md = README-CN.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib", "SQLib\SQLib.csproj", "{9E63252E-DF03-47D8-9ED6-394145B6B2F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.Test", "SQLib.Test\SQLib.Test.csproj", "{F19ECA4B-17F2-4A6B-886C-BD581C47FF58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLibApp", "SQLibApp\SQLibApp.csproj", "{17DB956A-FA3A-4366-9BE0-2CC6EBCB150A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E63252E-DF03-47D8-9ED6-394145B6B2F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E63252E-DF03-47D8-9ED6-394145B6B2F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E63252E-DF03-47D8-9ED6-394145B6B2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E63252E-DF03-47D8-9ED6-394145B6B2F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F19ECA4B-17F2-4A6B-886C-BD581C47FF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F19ECA4B-17F2-4A6B-886C-BD581C47FF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F19ECA4B-17F2-4A6B-886C-BD581C47FF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F19ECA4B-17F2-4A6B-886C-BD581C47FF58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17DB956A-FA3A-4366-9BE0-2CC6EBCB150A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DB956A-FA3A-4366-9BE0-2CC6EBCB150A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17DB956A-FA3A-4366-9BE0-2CC6EBCB150A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17DB956A-FA3A-4366-9BE0-2CC6EBCB150A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6355B598-4EE1-4F1D-8D80-F85F88100CD8}
+	EndGlobalSection
+EndGlobal

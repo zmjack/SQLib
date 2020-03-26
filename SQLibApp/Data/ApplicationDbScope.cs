@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
+using SQLib;
 
-namespace SqlPlus.Data.Test
+namespace SQLibApp.Data
 {
     public class ApplicationDbScope : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
     {

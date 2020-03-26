@@ -1,9 +1,9 @@
-# SqlPlus
+# SQLib
 
-**SqlPlus** 是一个自动参数化的 **SQL** 创作工具。
+**SQLib** 是一个自动参数化的 **SQL** 创作工具。
 
-- [English Readme](https://github.com/zmjack/SqlPlus/blob/master/README.md)
-- [中文自述](https://github.com/zmjack/SqlPlus/blob/master/README-CN.md)
+- [English Readme](https://github.com/zmjack/SQLib/blob/master/README.md)
+- [中文自述](https://github.com/zmjack/SQLib/blob/master/README-CN.md)
 
 <br/>
 

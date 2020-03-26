@@ -1,9 +1,9 @@
-# SqlPlus
+# SQLib
 
-**SqlPlus** is an automatic parameterized **SQL** authoring tool.
+**SQLib** is an automatic parameterized **SQL** authoring tool.
 
-- [English Readme](https://github.com/zmjack/SqlPlus/blob/master/README.md)
-- [中文自述](https://github.com/zmjack/SqlPlus/blob/master/README-CN.md)
+- [English Readme](https://github.com/zmjack/SQLib/blob/master/README.md)
+- [中文自述](https://github.com/zmjack/SQLib/blob/master/README-CN.md)
 
 <br/>
 
