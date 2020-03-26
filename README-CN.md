@@ -25,15 +25,15 @@
 
 ### 1. 构建访问器
 
-从 **SqlScope** 构建数据访问器：
+从 **SqlScope** 构建数据访问器（SQLite）：
 
 ```c#
 public class ApplicationDbScope : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
 {
-    public const string CONNECT_STRING = "filename=sqlplus.db";
-    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(new SqliteConnection(CONNECT_STRING));
+    public const string CONNECTION_STRING = "filename=sqlplus.db";
+    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(new SqliteConnection(CONNECTION_STRING));
 
-    public ApplicationDbScope(SqliteConnection model) : base(model) { }
+    public ApplicationDbScope(SqliteConnection conn) : base(conn) { }
 }
 ```
 <br/>
