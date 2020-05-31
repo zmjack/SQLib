@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using NStandard;
 using SQLib.Data.Test;
+using SQLib.Test.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,15 @@ namespace SQLib.Test
                     Assert.Equal(416L, record["Integer"]);
                     Assert.Equal(5.21d, record["Real"]);
                 });
+                sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First().Then(record =>
+                {
+                    Assert.Equal(5.21d, record.Real);
+                });
 
                 sqlite.Sql($"DELETE FROM main;");
 
                 Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+SELECT * FROM main WHERE Text=@p0;
 SELECT * FROM main WHERE Text=@p0;
 DELETE FROM main;
 ", output.ToString());

@@ -19,6 +19,7 @@ namespace SQLibApp
             {
                 QueryRegion_Traditional(1),
                 QueryRegion_SQLib(1),
+                QueryRegion_SQLib2(1),
                 QueryRegion_EF(1),
             };
             regions.Dump();
@@ -33,7 +34,7 @@ namespace SQLibApp
             var conn = new SqliteConnection("filename=northwnd.db");
             conn.Open();
 
-            var cmd = new SqliteCommand("SELECT RegionDescription FROM Regions WHERE RegionId=@p0;", conn);
+            var cmd = new SqliteCommand("SELECT * FROM Regions WHERE RegionId=@p0;", conn);
             cmd.Parameters.Add(new SqliteParameter
             {
                 ParameterName = "@p0",
@@ -43,7 +44,7 @@ namespace SQLibApp
 
             var reader = cmd.ExecuteReader();
             reader.Read();
-            ret = reader.GetString(0);
+            ret = reader.GetString("RegionDescription");
             reader.Close();
 
             conn.Close();
@@ -55,8 +56,17 @@ namespace SQLibApp
         {
             using (var sqlite = ApplicationDbScope.UseDefault())
             {
-                var region = sqlite.SqlQuery($"SELECT RegionDescription FROM Regions WHERE RegionId={regionId};").First();
+                var region = sqlite.SqlQuery($"SELECT * FROM Regions WHERE RegionId={regionId};").First();
                 return region["RegionDescription"] as string;
+            }
+        }
+
+        static string QueryRegion_SQLib2(int regionId)
+        {
+            using (var sqlite = ApplicationDbScope.UseDefault())
+            {
+                var region = sqlite.SqlQuery<Region>($"SELECT * FROM Regions WHERE RegionId={regionId};").First();
+                return region.RegionDescription;
             }
         }
 

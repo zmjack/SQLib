@@ -21,6 +21,15 @@
 - **MySql**: [MySqlConnector](https://www.nuget.org/packages/MySqlConnector)
 - **SqlServer**: [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)
 
+示例数据库 **sqlib.db** 表 **main** 定义如下：
+
+| 列名             | 类型    | C# 类型  |
+| ---------------- | ------- | -------- |
+| **CreationTime** | text    | DateTime |
+| **Integer**      | integer | int      |
+| **Real**         | real    | double   |
+| **Text**         | text    | string   |
+
 <br/>
 
 ### 1. 构建访问器
@@ -83,6 +92,24 @@ using (var sqlite = ApplicationDbScope.UseDefault())
 ```c#
 var record = sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};").First();
 Assert.Equal(5.21d, record["Real"]);
+```
+
+#### 使用实体接收查询
+
+为了便于使用强类型，我们提供了实体接收查询的方法：
+
+```c#
+public class Main
+{
+    public DateTime CreationTime { get; set; }
+    public int Integer { get; set; }
+    public double Real { get; set; }
+    public string Text { get; set; }
+}
+```
+```c#
+var record = sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First();
+Assert.Equal(5.21d, record.Real);
 ```
 
 <br/>

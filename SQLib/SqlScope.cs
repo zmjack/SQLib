@@ -81,8 +81,11 @@ namespace SQLib
             while (reader.Read())
             {
                 var dict = new Dictionary<string, object>();
-                foreach (var i in new int[reader.FieldCount].Let(i => i))
-                    dict[reader.GetName(i)] = reader.GetValue(i);
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    dict[fieldName] = reader.GetValue(i);
+                }
                 ret.Add(dict);
             }
             reader.Close();
@@ -90,11 +93,72 @@ namespace SQLib
 
             return ret.ToArray();
         }
+
+        public TEntity[] UnsafeSqlQuery<TEntity>(string sql, TDbParameter[] parameters = null) where TEntity : class, new() => UnsafeSqlQuery<TEntity>(CurrentTransaction, sql, parameters);
+        public TEntity[] UnsafeSqlQuery<TEntity>(DbTransaction transaction, string sql, TDbParameter[] parameters = null)
+            where TEntity : class, new()
+        {
+            var ret = new List<TEntity>();
+            var command = new TDbCommand
+            {
+                Transaction = transaction,
+                CommandText = sql,
+                Connection = Connection,
+            };
+            if (parameters != null) command.Parameters.AddRange(parameters);
+
+            var props = Common.EntityPropertiesCache[typeof(TEntity)].Value;
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var entity = new TEntity();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var prop = props.FirstOrDefault(x => string.Equals(x.Name , fieldName, StringComparison.InvariantCultureIgnoreCase));
+                    if (prop != null)
+                    {
+                        switch (prop.PropertyType)
+                        {
+                            case Type type when type == typeof(bool): prop.SetValue(entity, reader.GetBoolean(i)); break;
+                            case Type type when type == typeof(byte): prop.SetValue(entity, reader.GetByte(i)); break;
+                            case Type type when type == typeof(sbyte): prop.SetValue(entity, (sbyte)reader.GetByte(i)); break;
+                            case Type type when type == typeof(char): prop.SetValue(entity, reader.GetChar(i)); break;
+                            case Type type when type == typeof(short): prop.SetValue(entity, reader.GetInt16(i)); break;
+                            case Type type when type == typeof(ushort): prop.SetValue(entity, (ushort)reader.GetInt16(i)); break;
+                            case Type type when type == typeof(int): prop.SetValue(entity, reader.GetInt32(i)); break;
+                            case Type type when type == typeof(uint): prop.SetValue(entity, (uint)reader.GetInt32(i)); break;
+                            case Type type when type == typeof(long): prop.SetValue(entity, reader.GetInt64(i)); break;
+                            case Type type when type == typeof(ulong): prop.SetValue(entity, (ulong)reader.GetInt64(i)); break;
+                            case Type type when type == typeof(float): prop.SetValue(entity, reader.GetFloat(i)); break;
+                            case Type type when type == typeof(double): prop.SetValue(entity, reader.GetDouble(i)); break;
+                            case Type type when type == typeof(string): prop.SetValue(entity, reader.GetString(i)); break;
+                            case Type type when type == typeof(decimal): prop.SetValue(entity, reader.GetDecimal(i)); break;
+                            case Type type when type == typeof(DateTime): prop.SetValue(entity, reader.GetDateTime(i)); break;
+                        }
+                    }
+                }
+                ret.Add(entity);
+            }
+            reader.Close();
+            OnExecuted?.Invoke(command);
+
+            return ret.ToArray();
+        }
+
         public Dictionary<string, object>[] SqlQuery(FormattableString formattableSql) => SqlQuery(CurrentTransaction, formattableSql);
         public Dictionary<string, object>[] SqlQuery(DbTransaction transaction, FormattableString formattableSql)
         {
             var safeSql = new SafeSql<TDbParameter>(formattableSql);
             return UnsafeSqlQuery(transaction, safeSql.Sql, safeSql.Parameters);
+        }
+
+        public TEntity[] SqlQuery<TEntity>(FormattableString formattableSql) where TEntity : class, new() => SqlQuery<TEntity>(CurrentTransaction, formattableSql);
+        public TEntity[] SqlQuery<TEntity>(DbTransaction transaction, FormattableString formattableSql)
+            where TEntity : class, new()
+        {
+            var safeSql = new SafeSql<TDbParameter>(formattableSql);
+            return UnsafeSqlQuery<TEntity>(transaction, safeSql.Sql, safeSql.Parameters);
         }
 
     }

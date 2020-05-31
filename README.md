@@ -21,6 +21,15 @@ Other database providers:
 - **MySql**: [MySqlConnector](https://www.nuget.org/packages/MySqlConnector)
 - **SqlServer**: [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)
 
+The sample database **sqlib.db** table **main** is defined as follows:
+
+| Column           | Type    | C# Type  |
+| ---------------- | ------- | -------- |
+| **CreationTime** | text    | DateTime |
+| **Integer**      | integer | int      |
+| **Real**         | real    | double   |
+| **Text**         | text    | string   |
+
 <br/>
 
 ### 1. Build accessor
@@ -84,6 +93,25 @@ For example, query records in the table **main**, find the first record which **
 ```c#
 var record = sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};").First();
 Assert.Equal(5.21d, record["Real"]);
+```
+
+#### Use entities to receive queries
+
+To facilitate the use of strong typing, we provide a method for entities to receive queries:
+
+```c#
+public class Main
+{
+    public DateTime CreationTime { get; set; }
+    public int Integer { get; set; }
+    public double Real { get; set; }
+    public string Text { get; set; }
+}
+```
+
+```c#
+var record = sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First();
+Assert.Equal(5.21d, record.Real);
 ```
 
 <br/>
