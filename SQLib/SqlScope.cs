@@ -107,7 +107,7 @@ namespace SQLib
             };
             if (parameters != null) command.Parameters.AddRange(parameters);
 
-            var props = Common.EntityPropertiesCache[typeof(TEntity)].Value;
+            var columns = Common.EntityPropertiesCache[typeof(TEntity)].Value;
             var reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -115,26 +115,27 @@ namespace SQLib
                 for (var i = 0; i < reader.FieldCount; i++)
                 {
                     var fieldName = reader.GetName(i);
-                    var prop = props.FirstOrDefault(x => string.Equals(x.Name , fieldName, StringComparison.InvariantCultureIgnoreCase));
-                    if (prop != null)
+                    var column = columns.FirstOrDefault(x => string.Equals(x.Name, fieldName, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (column != null)
                     {
-                        switch (prop.PropertyType)
+                        switch (column.Property.PropertyType)
                         {
-                            case Type type when type == typeof(bool): prop.SetValue(entity, reader.GetBoolean(i)); break;
-                            case Type type when type == typeof(byte): prop.SetValue(entity, reader.GetByte(i)); break;
-                            case Type type when type == typeof(sbyte): prop.SetValue(entity, (sbyte)reader.GetByte(i)); break;
-                            case Type type when type == typeof(char): prop.SetValue(entity, reader.GetChar(i)); break;
-                            case Type type when type == typeof(short): prop.SetValue(entity, reader.GetInt16(i)); break;
-                            case Type type when type == typeof(ushort): prop.SetValue(entity, (ushort)reader.GetInt16(i)); break;
-                            case Type type when type == typeof(int): prop.SetValue(entity, reader.GetInt32(i)); break;
-                            case Type type when type == typeof(uint): prop.SetValue(entity, (uint)reader.GetInt32(i)); break;
-                            case Type type when type == typeof(long): prop.SetValue(entity, reader.GetInt64(i)); break;
-                            case Type type when type == typeof(ulong): prop.SetValue(entity, (ulong)reader.GetInt64(i)); break;
-                            case Type type when type == typeof(float): prop.SetValue(entity, reader.GetFloat(i)); break;
-                            case Type type when type == typeof(double): prop.SetValue(entity, reader.GetDouble(i)); break;
-                            case Type type when type == typeof(string): prop.SetValue(entity, reader.GetString(i)); break;
-                            case Type type when type == typeof(decimal): prop.SetValue(entity, reader.GetDecimal(i)); break;
-                            case Type type when type == typeof(DateTime): prop.SetValue(entity, reader.GetDateTime(i)); break;
+                            case Type type when type == typeof(bool): column.Property.SetValue(entity, reader.GetBoolean(i)); break;
+                            case Type type when type == typeof(byte): column.Property.SetValue(entity, reader.GetByte(i)); break;
+                            case Type type when type == typeof(sbyte): column.Property.SetValue(entity, (sbyte)reader.GetByte(i)); break;
+                            case Type type when type == typeof(char): column.Property.SetValue(entity, reader.GetChar(i)); break;
+                            case Type type when type == typeof(short): column.Property.SetValue(entity, reader.GetInt16(i)); break;
+                            case Type type when type == typeof(ushort): column.Property.SetValue(entity, (ushort)reader.GetInt16(i)); break;
+                            case Type type when type == typeof(int): column.Property.SetValue(entity, reader.GetInt32(i)); break;
+                            case Type type when type == typeof(uint): column.Property.SetValue(entity, (uint)reader.GetInt32(i)); break;
+                            case Type type when type == typeof(long): column.Property.SetValue(entity, reader.GetInt64(i)); break;
+                            case Type type when type == typeof(ulong): column.Property.SetValue(entity, (ulong)reader.GetInt64(i)); break;
+                            case Type type when type == typeof(float): column.Property.SetValue(entity, reader.GetFloat(i)); break;
+                            case Type type when type == typeof(double): column.Property.SetValue(entity, reader.GetDouble(i)); break;
+                            case Type type when type == typeof(string): column.Property.SetValue(entity, reader.GetString(i)); break;
+                            case Type type when type == typeof(decimal): column.Property.SetValue(entity, reader.GetDecimal(i)); break;
+                            case Type type when type == typeof(DateTime): column.Property.SetValue(entity, reader.GetDateTime(i)); break;
                         }
                     }
                 }

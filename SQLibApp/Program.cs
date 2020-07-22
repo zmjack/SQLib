@@ -22,7 +22,7 @@ namespace SQLibApp
                 QueryRegion_SQLib2(1),
                 QueryRegion_EF(1),
             };
-            regions.Dump();
+
             SQLiteDataAdapter adapter = new SQLiteDataAdapter();
             Console.WriteLine(regions.All(x => x == "Eastern"));
         }

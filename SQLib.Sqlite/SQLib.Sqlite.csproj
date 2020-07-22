@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <Authors>zmjack</Authors>
     <Description>Sqlite package for SQLib.</Description>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
