@@ -30,7 +30,7 @@ namespace SQLib.Test
                     Assert.Equal(416L, record["Integer"]);
                     Assert.Equal(5.21d, record["Real"]);
                 });
-                sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First().Then(record =>
+                var mains = sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First().Then(record =>
                 {
                     Assert.Equal(5.21d, record.Real);
                 });

@@ -1,6 +1,7 @@
 ﻿using NStandard;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SQLib.Test.Data
@@ -10,6 +11,8 @@ namespace SQLib.Test.Data
         public DateTime CreationTime { get; set; }
         public int Integer { get; set; }
         public double Real { get; set; }
-        public string Text { get; set; }
+
+        [Column("Text")]
+        public string Plain { get; set; }
     }
 }
