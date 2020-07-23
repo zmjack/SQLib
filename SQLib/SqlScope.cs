@@ -1,9 +1,7 @@
 ﻿using NStandard;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace SQLib
@@ -115,7 +113,7 @@ namespace SQLib
                 for (var i = 0; i < reader.FieldCount; i++)
                 {
                     var fieldName = reader.GetName(i);
-                    var column = columns.FirstOrDefault(x => string.Equals(x.Name, fieldName, StringComparison.InvariantCultureIgnoreCase));
+                    var column = columns.FirstOrDefault(x => string.Equals(x.ColumnName, fieldName, StringComparison.InvariantCultureIgnoreCase));
 
                     if (column != null)
                     {
