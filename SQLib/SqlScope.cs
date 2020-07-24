@@ -117,24 +117,8 @@ namespace SQLib
 
                     if (column != null)
                     {
-                        switch (column.Property.PropertyType)
-                        {
-                            case Type type when type == typeof(bool): column.Property.SetValue(entity, reader.GetBoolean(i)); break;
-                            case Type type when type == typeof(byte): column.Property.SetValue(entity, reader.GetByte(i)); break;
-                            case Type type when type == typeof(sbyte): column.Property.SetValue(entity, (sbyte)reader.GetByte(i)); break;
-                            case Type type when type == typeof(char): column.Property.SetValue(entity, reader.GetChar(i)); break;
-                            case Type type when type == typeof(short): column.Property.SetValue(entity, reader.GetInt16(i)); break;
-                            case Type type when type == typeof(ushort): column.Property.SetValue(entity, (ushort)reader.GetInt16(i)); break;
-                            case Type type when type == typeof(int): column.Property.SetValue(entity, reader.GetInt32(i)); break;
-                            case Type type when type == typeof(uint): column.Property.SetValue(entity, (uint)reader.GetInt32(i)); break;
-                            case Type type when type == typeof(long): column.Property.SetValue(entity, reader.GetInt64(i)); break;
-                            case Type type when type == typeof(ulong): column.Property.SetValue(entity, (ulong)reader.GetInt64(i)); break;
-                            case Type type when type == typeof(float): column.Property.SetValue(entity, reader.GetFloat(i)); break;
-                            case Type type when type == typeof(double): column.Property.SetValue(entity, reader.GetDouble(i)); break;
-                            case Type type when type == typeof(string): column.Property.SetValue(entity, reader.GetString(i)); break;
-                            case Type type when type == typeof(decimal): column.Property.SetValue(entity, reader.GetDecimal(i)); break;
-                            case Type type when type == typeof(DateTime): column.Property.SetValue(entity, reader.GetDateTime(i)); break;
-                        }
+                        var value = reader.GetValue(i).For(v => v is DBNull ? null : ConvertEx.ChangeType(v, column.Property.PropertyType));
+                        column.Property.SetValue(entity, value);
                     }
                 }
                 ret.Add(entity);

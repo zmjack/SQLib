@@ -1,6 +1,5 @@
 ﻿using NStandard;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 
@@ -14,12 +13,10 @@ namespace SQLib
             {
                 var props = type.GetProperties()
                     .Where(x => x.CanWrite && x.CanRead)
-                    .Where(x => !x.HasAttribute<NotMappedAttribute>())
+                    .Where(x => !x.HasAttribute<NotSqlColumnAttribute>())
                     .Select(prop =>
                     {
-                        var columnName = prop.GetCustomAttribute<SqlColumnAttribute>()?.Name
-                                      ?? prop.GetCustomAttribute<ColumnAttribute>()?.Name
-                                      ?? prop.Name;
+                        var columnName = prop.GetCustomAttribute<SqlColumnAttribute>()?.Name ?? prop.Name;
                         return new ColumnInfo
                         {
                             Property = prop,

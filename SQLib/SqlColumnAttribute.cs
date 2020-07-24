@@ -11,6 +11,5 @@ namespace SQLib
         {
             Name = name;
         }
-
     }
 }
