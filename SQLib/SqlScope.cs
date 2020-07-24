@@ -118,7 +118,14 @@ namespace SQLib
                     if (column != null)
                     {
                         var value = reader.GetValue(i).For(v => v is DBNull ? null : ConvertEx.ChangeType(v, column.Property.PropertyType));
-                        column.Property.SetValue(entity, value);
+                        try
+                        {
+                            column.Property.SetValue(entity, value);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ArgumentException($"Can not set value for field({fieldName}).", ex);
+                        }
                     }
                 }
                 ret.Add(entity);
