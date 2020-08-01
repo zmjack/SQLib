@@ -23,6 +23,12 @@ namespace SQLib
                             ColumnName = columnName,
                         };
                     });
+
+                foreach (var group in props.Select(x => x.ColumnName).GroupBy(x => x))
+                {
+                    if (group.Count() > 1) throw new ArgumentException($"More columns have the same name({group.Key}).");
+                }
+
                 return props.ToArray();
             },
         };
