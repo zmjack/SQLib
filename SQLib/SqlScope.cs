@@ -32,7 +32,7 @@ namespace SQLib
 
         public override void Disposing()
         {
-            Connection.Close();
+            Connection.Dispose();
             base.Disposing();
         }
 
