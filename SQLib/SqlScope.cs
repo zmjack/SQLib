@@ -44,7 +44,7 @@ namespace SQLib
         public int UnsafeSql(string sql, TDbParameter[] parameters = null) => UnsafeSql(CurrentTransaction, sql, parameters);
         public int UnsafeSql(DbTransaction transaction, string sql, TDbParameter[] parameters = null)
         {
-            var command = new TDbCommand
+            using var command = new TDbCommand
             {
                 Transaction = transaction,
                 CommandText = sql,
@@ -67,7 +67,7 @@ namespace SQLib
         public Dictionary<string, object>[] UnsafeSqlQuery(DbTransaction transaction, string sql, TDbParameter[] parameters = null)
         {
             var ret = new List<Dictionary<string, object>>();
-            var command = new TDbCommand
+            using var command = new TDbCommand
             {
                 Transaction = transaction,
                 CommandText = sql,
@@ -97,7 +97,7 @@ namespace SQLib
             where TEntity : class, new()
         {
             var ret = new List<TEntity>();
-            var command = new TDbCommand
+            using var command = new TDbCommand
             {
                 Transaction = transaction,
                 CommandText = sql,
@@ -117,7 +117,8 @@ namespace SQLib
 
                     if (column != null)
                     {
-                        var value = reader.GetValue(i).For(v => v is DBNull ? null : ConvertEx.ChangeType(v, column.Property.PropertyType));
+                        var ovalue = reader.GetValue(i);
+                        var value = ovalue is DBNull ? null : ConvertEx.ChangeType(ovalue, column.Property.PropertyType);
                         try
                         {
                             column.Property.SetValue(entity, value);
