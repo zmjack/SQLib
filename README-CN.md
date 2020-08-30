@@ -66,19 +66,18 @@ using (var sqlite = ApplicationDbScope.UseDefault())
 INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
 ```
 
-如果需要监视 **SQL** 的执行，可以注册 **OnExcuted** 事件
+<br/>
 
-```c#
-using (var sqlite = ApplicationDbScope.UseDefault())
-{
-    var output = new StringBuilder();
-    sqlite.OnExecuted += command => output.AppendLine(command.CommandText);
+**IN** 语句参数化：
 
-    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+```csharp
+sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 415, 416, 417 }};");
+```
 
-    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
-", output.ToString());
-}
+生成参数化 SQL：
+
+```sql
+SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2);
 ```
 
 <br/>
@@ -110,6 +109,25 @@ public class Main
 ```c#
 var record = sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First();
 Assert.Equal(5.21d, record.Real);
+```
+
+<br/>
+
+### 4. SQL 监视
+
+如果需要监视 **SQL** 的执行，可以注册 **OnExcuted** 事件：
+
+```c#
+using (var sqlite = ApplicationDbScope.UseDefault())
+{
+    var output = new StringBuilder();
+    sqlite.OnExecuted += command => output.AppendLine(command.CommandText);
+
+    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+
+    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+", output.ToString());
+}
 ```
 
 <br/>

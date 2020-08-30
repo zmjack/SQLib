@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>MySQL package for SQLib.</Description>
     <Authors>zmjack</Authors>
-    <Version>0.6.4</Version>
+    <Version>0.7.0</Version>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
     <PackageIcon>sqlib.png</PackageIcon>
     <RepositoryUrl>https://github.com/zmjack/SQLib</RepositoryUrl>

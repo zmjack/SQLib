@@ -67,19 +67,18 @@ The following **SQL** statement with parameters will be generated for query:
 INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
 ```
 
-If you need to monitor the execution of **SQL**, you can register the **OnExcuted** event:
+<br/>
 
-```c#
-using (var sqlite = ApplicationDbScope.UseDefault())
-{
-    var output = new StringBuilder();
-    sqlite.OnExecuted += command => output.AppendLine(command.CommandText);
+Parameterize **IN** statement:
 
-    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+```csharp
+sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 415, 416, 417 }};");
+```
 
-    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
-", output.ToString());
-}
+The generated SQL:
+
+```sql
+SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2);
 ```
 
 <br/>
@@ -112,6 +111,25 @@ public class Main
 ```c#
 var record = sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").First();
 Assert.Equal(5.21d, record.Real);
+```
+
+<br/>
+
+### 4. SQL Monitor
+
+If you need to monitor the execution of **SQL**, you can register the **OnExcuted** event:
+
+```c#
+using (var sqlite = ApplicationDbScope.UseDefault())
+{
+    var output = new StringBuilder();
+    sqlite.OnExecuted += command => output.AppendLine(command.CommandText);
+
+    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+
+    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+", output.ToString());
+}
 ```
 
 <br/>
