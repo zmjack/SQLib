@@ -11,14 +11,14 @@
     <PackageTags>sql query parameterize</PackageTags>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
-    <Version>0.7.0</Version>
+    <Version>0.7.1</Version>
     <PackageIcon>sqlib.png</PackageIcon>
     <PackageIconUrl />
     <PackageId>SQLib</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NStandard" Version="0.5.2" />
+    <PackageReference Include="NStandard" Version="0.5.20" />
   </ItemGroup>
 
   <ItemGroup>

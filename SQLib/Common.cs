@@ -1,4 +1,5 @@
 ﻿using NStandard;
+using NStandard.Caching;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -7,9 +8,9 @@ namespace SQLib
 {
     public static class Common
     {
-        public static CacheContainer<Type, ColumnInfo[]> EntityPropertiesCache = new CacheContainer<Type, ColumnInfo[]>
+        public static CacheSet<Type, ColumnInfo[]> EntityPropertiesCache = new CacheSet<Type, ColumnInfo[]>
         {
-            CacheMethod = type => () =>
+            CacheMethodBuilder = type => () =>
             {
                 var props = type.GetProperties()
                     .Where(x => x.CanWrite && x.CanRead)
