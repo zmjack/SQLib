@@ -24,9 +24,9 @@ namespace SQLib
         public DbTransaction CurrentTransaction => TransactionScope<TSelf, TDbConnection, TDbCommand, TDbParameter>.Current?.Transaction;
         public event OnExecutedDelegate OnExecuted;
 
-        public SqlScope(TDbConnection model)
+        public SqlScope(TDbConnection conn)
         {
-            Connection = model;
+            Connection = conn;
             Connection.Open();
         }
 
