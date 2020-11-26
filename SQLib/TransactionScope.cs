@@ -15,5 +15,9 @@ namespace SQLib
         {
             Transaction = transaction;
         }
+
+        public void Commit() => Transaction.Commit();
+        public void Rollback() => Transaction.Rollback();
+
     }
 }

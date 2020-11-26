@@ -20,6 +20,7 @@ namespace SQLib.Test
 
             using (Test.MutexLock.Begin())
             using (var sqlite = ApplicationDbScope.UseDefault())
+            using (var trans = sqlite.BeginTransactionScope())
             {
                 sqlite.OnExecuted += onExecuted;
 
@@ -42,6 +43,8 @@ namespace SQLib.Test
                     "SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2, @p0_3);",
                     "DELETE FROM main;",
                 }, sqlList);
+
+                trans.Commit();
             }
         }
 
