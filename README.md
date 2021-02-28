@@ -196,3 +196,27 @@ This will lead to a series of security problems.
 
 <br/>
 
+## .NET Compatibility
+
+### **.NET 3.5 / 4.0 / 4.5 / 4.5.1**
+
+Under **.NET 3.5 / 4.0 / 4.5 / 4.5.1**，the **FormattableString** is provided by **NStandard** library.
+
+If your **Visual Studio** does not support string interpolation ( **$""** ), you can use **FormattableStringFactory.Create** to create **FormattableString**.
+
+For example:
+
+```csharp
+sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};");
+```
+
+is the same as:
+
+```csharp
+sqlite.SqlQuery(
+    FormattableStringFactory.Create(
+        "SELECT * FROM main WHERE Text={0};",
+        "Hello"));
+```
+
+<br/>
