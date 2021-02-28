@@ -12,7 +12,7 @@ namespace SQLib
         public string Sql;
         public TDbParameter[] Parameters;
 
-        public static TDbParameter CreateParameter(string parameterName, object value)
+        protected static TDbParameter CreateParameter(string parameterName, object value)
         {
             return new TDbParameter
             {
@@ -35,6 +35,7 @@ namespace SQLib
                     Type type when type == typeof(string) => DbType.String,
                     Type type when type == typeof(decimal) => DbType.Decimal,
                     Type type when type == typeof(DateTime) => DbType.DateTime,
+                    Type type when type == typeof(byte[]) => DbType.Binary,
                     _ => DbType.Object,
                 },
             };
@@ -47,8 +48,9 @@ namespace SQLib
 
             Sql = string.Format(sql, args.Select((value, i) =>
             {
-                var isArray = value.GetType().IsArray;
-                if (isArray)
+                var type = value.GetType();
+                var isArray = type.IsArray;
+                if (isArray && type.GetElementType() != typeof(byte))
                 {
                     var list = new List<string>();
                     var arr = value as Array;
@@ -62,9 +64,9 @@ namespace SQLib
             Parameters = args.SelectMany((value, i) =>
             {
                 var list = new List<TDbParameter>();
-
+                var type = value.GetType();
                 var isArray = value.GetType().IsArray;
-                if (isArray)
+                if (isArray && type.GetElementType() != typeof(byte))
                 {
                     var arr = value as Array;
                     var subIndex = 0;
@@ -75,5 +77,6 @@ namespace SQLib
                 return list;
             }).ToArray();
         }
+
     }
 }

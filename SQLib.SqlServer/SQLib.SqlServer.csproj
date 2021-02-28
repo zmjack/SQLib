@@ -1,26 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net451;net46</TargetFrameworks>
-    <Description>MySQL package for SQLib.</Description>
-    <Authors>zmjack</Authors>
+    <TargetFrameworks>netstandard2.0;net35;net40;net45;net451;net46</TargetFrameworks>
     <Version>0.8.0</Version>
+    <Authors>zmjack</Authors>
+    <Description>SqlServer package for SQLib.</Description>
+    <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
     <PackageIcon>sqlib.png</PackageIcon>
     <RepositoryUrl>https://github.com/zmjack/SQLib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>sql query parameterize</PackageTags>
-    <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySqlConnector" Version="0.67.0" />
+    <ProjectReference Include="..\SQLib\SQLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SQLib\SQLib.csproj" />
+  <ItemGroup Condition="'$(TargetFramework)'!='net35' and '$(TargetFramework)'!='net40' and '$(TargetFramework)'!='net45' and '$(TargetFramework)'!='net451' and '$(TargetFramework)'!='net46'">
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>

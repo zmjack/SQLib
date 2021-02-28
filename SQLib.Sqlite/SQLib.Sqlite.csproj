@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.7.5</Version>
+    <TargetFrameworks>netstandard2.0;net35;net40;net45;net451;net46</TargetFrameworks>
+    <Version>0.8.0</Version>
     <Authors>zmjack</Authors>
     <Description>Sqlite package for SQLib.</Description>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
@@ -16,11 +16,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.6" />
+    <ProjectReference Include="..\SQLib\SQLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SQLib\SQLib.csproj" />
+  <ItemGroup Condition="'$(TargetFramework)'=='net35' or '$(TargetFramework)'=='net40' or '$(TargetFramework)'=='net45' or '$(TargetFramework)'=='net451' or '$(TargetFramework)'=='net46'">
+    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'!='net35' and '$(TargetFramework)'!='net40' and '$(TargetFramework)'!='net45' and '$(TargetFramework)'!='net451' and '$(TargetFramework)'!='net46'">
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>

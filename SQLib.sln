@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.Test", "SQLib.Test\SQ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLibApp", "SQLibApp\SQLibApp.csproj", "{17DB956A-FA3A-4366-9BE0-2CC6EBCB150A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLib.MySQL", "SQLib.MySQL\SQLib.MySQL.csproj", "{97DB719E-AEC9-445D-B7E7-77A61F360A9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.MySQL", "SQLib.MySQL\SQLib.MySQL.csproj", "{97DB719E-AEC9-445D-B7E7-77A61F360A9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLib.Sqlite", "SQLib.Sqlite\SQLib.Sqlite.csproj", "{08D794D1-0A7E-48F2-B627-907D0E0B9FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.Sqlite", "SQLib.Sqlite\SQLib.Sqlite.csproj", "{08D794D1-0A7E-48F2-B627-907D0E0B9FA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLib.SqlServer", "SQLib.SqlServer\SQLib.SqlServer.csproj", "{C99118DD-AC09-4231-B35D-019F13CF1D66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{08D794D1-0A7E-48F2-B627-907D0E0B9FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08D794D1-0A7E-48F2-B627-907D0E0B9FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08D794D1-0A7E-48F2-B627-907D0E0B9FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
