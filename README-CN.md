@@ -165,7 +165,7 @@ cmd.ExecuteNonQuery();
 ```
 <br/>
 
-### SQL 注入
+### SQL 注入警示
 
 <font color=red>永远不应该使用拼接方式来组合 SQL 语句</font>：
 

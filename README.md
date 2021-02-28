@@ -168,7 +168,7 @@ cmd.ExecuteNonQuery();
 
 <br/>
 
-### SQL Injection
+### SQL Injection Warning
 
 <font color=red>You should never use splicing to combine SQL statements</font>:
 
