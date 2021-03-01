@@ -9,12 +9,12 @@
 
 Support databases:
 
-| Database      | Library         | Scope          | .NET Version                                                |
-| ------------- | --------------- | -------------- | ----------------------------------------------------------- |
-| **MySql**     | SQLib.MySql     | MySqlScope     | NET 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0**             |
-| **Sqlite**    | SQLib.Sqlite    | SqliteScope    | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
-| **SqlServer** | SQLib.SqlServer | SqlServerScope | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
-| **Others**    | SQLib           | SqlScope<>     | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
+| Database      | Library         | Scope          | .NET Version                                                | Provider                                          |
+| ------------- | --------------- | -------------- | ----------------------------------------------------------- | ------------------------------------------------- |
+| **MySql**     | SQLib.MySql     | MySqlScope     | NET 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0**             | MySqlConnector                                    |
+| **Sqlite**    | SQLib.Sqlite    | SqliteScope    | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** | System.Data.SQLite<br />**Microsoft.Data.Sqlite** |
+| **SqlServer** | SQLib.SqlServer | SqlServerScope | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** | .NET Framework<br />**Microsoft.Data.SqlClient**  |
+| **Others**    | SQLib           | SqlScope<>     | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** | -                                                 |
 
 <br/>
 
