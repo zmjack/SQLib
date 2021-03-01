@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.Sqlite", "SQLib.Sqlit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.SqlServer", "SQLib.SqlServer\SQLib.SqlServer.csproj", "{C99118DD-AC09-4231-B35D-019F13CF1D66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.MySql", "SQLib.MySql\SQLib.MySql.csproj", "{E9EA85B0-B6B1-4458-86D5-3066511FD9A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLib.MySql", "SQLib.MySql\SQLib.MySql.csproj", "{551E6B87-4FF5-4CE7-B0E2-79E0FC558EC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C99118DD-AC09-4231-B35D-019F13CF1D66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9EA85B0-B6B1-4458-86D5-3066511FD9A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9EA85B0-B6B1-4458-86D5-3066511FD9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9EA85B0-B6B1-4458-86D5-3066511FD9A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9EA85B0-B6B1-4458-86D5-3066511FD9A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{551E6B87-4FF5-4CE7-B0E2-79E0FC558EC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{551E6B87-4FF5-4CE7-B0E2-79E0FC558EC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{551E6B87-4FF5-4CE7-B0E2-79E0FC558EC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{551E6B87-4FF5-4CE7-B0E2-79E0FC558EC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
