@@ -18,6 +18,29 @@
 
 <br/>
 
+## .NET 兼容性
+
+### **.NET 3.5 / 4.0 / 4.5 / 4.5.1**
+
+如果 **Visual Studio** 不支持字符串内插 ( **$""** )，可使用 **FormattableStringFactory.Create** 创建 **FormattableString**。
+
+例如：
+
+```csharp
+sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};");
+```
+
+等同于：
+
+```csharp
+sqlite.SqlQuery(
+    FormattableStringFactory.Create(
+        "SELECT * FROM main WHERE Text={0};",
+        "Hello"));
+```
+
+<br/>
+
 ## 用法说明
 
 ### 0. 引用
@@ -202,27 +225,3 @@ SELECT * FROM main WHERE Text='' or 1 or '';
 
 <br/>
 
-## .NET 兼容性
-
-### **.NET 3.5 / 4.0 / 4.5 / 4.5.1**
-
-**.NET 3.5 / 4.0 / 4.5 / 4.5.1** 中的 **FormattableString** 由 **NStandard** 库提供.
-
-如果使用的 **Visual Studio** 不支持字符串内插 ( **$""** )，则可以使用 **FormattableStringFactory.Create** 来创建 **FormattableString**。
-
-例如：
-
-```csharp
-sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};");
-```
-
-等同于：
-
-```csharp
-sqlite.SqlQuery(
-    FormattableStringFactory.Create(
-        "SELECT * FROM main WHERE Text={0};",
-        "Hello"));
-```
-
-<br/>
