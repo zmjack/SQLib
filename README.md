@@ -7,19 +7,28 @@
 
 <br/>
 
-## instructions
+Support databases:
 
-### 0. Refer to the database provider
+| Database      | Library         | Scope          | .NET Version                                                |
+| ------------- | --------------- | -------------- | ----------------------------------------------------------- |
+| **MySQL**     | SQLib.MySql     | MySqlScope     | NET 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0**             |
+| **Sqlite**    | SQLib.Sqlite    | SqliteScope    | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
+| **SqlServer** | SQLib.SqlServer | SqlServerScope | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
+| **Others**    | SQLib           | SqlScope<>     | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
 
-All the examples in this article are described using **Sqlite**, using the following database provider:
+<br/>
 
-- [Microsoft.Data.Sqlite](https://www.nuget.org/packages/Microsoft.Data.Sqlite)
+## Instructions
 
-Other database providers:
+### 0. Install
 
-- **SQLite**: [Microsoft.Data.Sqlite](https://www.nuget.org/packages/Microsoft.Data.Sqlite)
-- **MySql**: [MySqlConnector](https://www.nuget.org/packages/MySqlConnector)
-- **SqlServer**: [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)
+All the examples in this article are described using **Sqlite**.
+
+Install **SQLib.Sqlite** via **NuGet**:
+
+```powershell
+dotnet add package SQLib.Sqlite
+```
 
 The sample database **sqlib.db** table **main** is defined as follows:
 
@@ -37,12 +46,12 @@ The sample database **sqlib.db** table **main** is defined as follows:
 Build the data accessor from **SqlScope** (SQLite):
 
 ```c#
-public class ApplicationDbScope : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
+public class ApplicationDbScope : SqliteScope<ApplicationDbScope>
 {
-    public const string CONNECTION_STRING = "filename=sqlib.db";
-    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(new SqliteConnection(CONNECTION_STRING));
+    public const string CONNECT_STRING = "filename=sqlib.db";
+    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(CONNECT_STRING);
 
-    public ApplicationDbScope(SqliteConnection conn) : base(conn) { }
+    public ApplicationDbScope(string connectionString) : base(connectionString) { }
 }
 ```
 
@@ -152,7 +161,7 @@ SELECT * FROM main WHERE Text=@p0;
 */
 ```
 
-In the traditional way, is equal to
+In the traditional way, it is equal to
 
 ```c#
 var text = "Hello";

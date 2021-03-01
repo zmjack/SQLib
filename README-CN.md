@@ -7,19 +7,28 @@
 
 <br/>
 
+支持的数据库：
+
+| Database      | Library         | Scope          | .NET Version                                                |
+| ------------- | --------------- | -------------- | ----------------------------------------------------------- |
+| **MySQL**     | SQLib.MySql     | MySqlScope     | NET 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0**             |
+| **Sqlite**    | SQLib.Sqlite    | SqliteScope    | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
+| **SqlServer** | SQLib.SqlServer | SqlServerScope | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
+| **其他**      | SQLib           | SqlScope<>     | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0   |
+
+<br/>
+
 ## 用法说明
 
-### 0. 引用数据库提供程序
+### 0. 引用
 
-本文中的所有示例都使用 **Sqlite** 进行描述，使用的数据库提供程序为：
+本文中的所有示例都使用 **Sqlite** 进行描述。
 
-- [Microsoft.Data.Sqlite](https://www.nuget.org/packages/Microsoft.Data.Sqlite)
+从 **NuGet** 安装库 **SQLib.Sqlite**：
 
-其他数据库提供程序：
-
-- **SQLite**: [Microsoft.Data.Sqlite](https://www.nuget.org/packages/Microsoft.Data.Sqlite)
-- **MySql**: [MySqlConnector](https://www.nuget.org/packages/MySqlConnector)
-- **SqlServer**: [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)
+```powershell
+dotnet add package SQLib.Sqlite
+```
 
 示例数据库 **sqlib.db** 表 **main** 定义如下：
 
@@ -37,12 +46,12 @@
 从 **SqlScope** 构建数据访问器（SQLite）：
 
 ```c#
-public class ApplicationDbScope : SqlScope<ApplicationDbScope, SqliteConnection, SqliteCommand, SqliteParameter>
+public class ApplicationDbScope : SqliteScope<ApplicationDbScope>
 {
-    public const string CONNECTION_STRING = "filename=sqlib.db";
-    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(new SqliteConnection(CONNECTION_STRING));
+    public const string CONNECT_STRING = "filename=sqlib.db";
+    public static ApplicationDbScope UseDefault() => new ApplicationDbScope(CONNECT_STRING);
 
-    public ApplicationDbScope(SqliteConnection conn) : base(conn) { }
+    public ApplicationDbScope(string connectionString) : base(connectionString) { }
 }
 ```
 <br/>
