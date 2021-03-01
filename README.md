@@ -11,7 +11,7 @@ Support databases:
 
 | Database      | Library         | Scope          | .NET Version                                                |
 | ------------- | --------------- | -------------- | ----------------------------------------------------------- |
-| **MySQL**     | SQLib.MySql     | MySqlScope     | NET 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0**             |
+| **MySql**     | SQLib.MySql     | MySqlScope     | NET 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0**             |
 | **Sqlite**    | SQLib.Sqlite    | SqliteScope    | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
 | **SqlServer** | SQLib.SqlServer | SqlServerScope | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
 | **Others**    | SQLib           | SqlScope<>     | NET 3.5 / 4.0 / 4.5 / 4.5.1 / 4.6<br />**NET Standard 2.0** |
