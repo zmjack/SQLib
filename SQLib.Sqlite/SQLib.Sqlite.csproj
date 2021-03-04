@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net35;net40;net45;net451;net46</TargetFrameworks>
-    <Version>0.8.5</Version>
+    <Version>0.8.6</Version>
     <Authors>zmjack</Authors>
     <Description>Sqlite package for SQLib.</Description>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net35' or '$(TargetFramework)'=='net40' or '$(TargetFramework)'=='net45' or '$(TargetFramework)'=='net451' or '$(TargetFramework)'=='net46'">
-    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.7" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'!='net35' and '$(TargetFramework)'!='net40' and '$(TargetFramework)'!='net45' and '$(TargetFramework)'!='net451' and '$(TargetFramework)'!='net46'">
