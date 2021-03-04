@@ -12,7 +12,7 @@
     <PackageTags>sql query parameterize</PackageTags>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
-    <Version>0.8.0</Version>
+    <Version>0.8.5</Version>
     <PackageIcon>sqlib.png</PackageIcon>
     <PackageIconUrl />
     <PackageId>SQLib</PackageId>

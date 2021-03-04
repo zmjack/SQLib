@@ -27,6 +27,7 @@ namespace SQLib
         public SqlScope(TDbConnection conn)
         {
             Connection = conn;
+            Initialize();
             Connection.Open();
         }
 
@@ -34,6 +35,10 @@ namespace SQLib
         {
             Connection.Dispose();
             base.Disposing();
+        }
+
+        public virtual void Initialize()
+        {
         }
 
         public TransactionScope<TSelf, TDbConnection, TDbCommand, TDbParameter> BeginTransactionScope()
