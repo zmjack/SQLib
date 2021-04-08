@@ -80,7 +80,7 @@ namespace SQLib
             };
             if (parameters != null) command.Parameters.AddRange(parameters);
 
-            var reader = command.ExecuteReader();
+            using var reader = command.ExecuteReader();
             while (reader.Read())
             {
                 var dict = new Dictionary<string, object>();
@@ -111,7 +111,7 @@ namespace SQLib
             if (parameters != null) command.Parameters.AddRange(parameters);
 
             var columns = Common.EntityPropertiesCache[typeof(TEntity)].Value;
-            var reader = command.ExecuteReader();
+            using var reader = command.ExecuteReader();
             while (reader.Read())
             {
                 var entity = new TEntity();

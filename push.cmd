@@ -1,5 +1,5 @@
-nuget push "SQLib/bin/Release/SQLib.0.8.6.nupkg" -source nuget.org
-nuget push "SQLib.MySql/bin/Release/SQLib.MySql.0.8.6.nupkg" -source nuget.org
-nuget push "SQLib.Sqlite/bin/Release/SQLib.Sqlite.0.8.6.nupkg" -source nuget.org
-nuget push "SQLib.SqlServer/bin/Release/SQLib.SqlServer.0.8.6.nupkg" -source nuget.org
+nuget push "SQLib/bin/Release/SQLib.0.8.7.nupkg" -source nuget.org
+nuget push "SQLib.MySql/bin/Release/SQLib.MySql.0.8.7.nupkg" -source nuget.org
+nuget push "SQLib.Sqlite/bin/Release/SQLib.Sqlite.0.8.7.nupkg" -source nuget.org
+nuget push "SQLib.SqlServer/bin/Release/SQLib.SqlServer.0.8.7.nupkg" -source nuget.org
 pause
