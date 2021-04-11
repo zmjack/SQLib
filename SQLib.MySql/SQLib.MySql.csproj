@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net45;net451;net46</TargetFrameworks>
     <Description>MySql package for SQLib.</Description>
     <Authors>zmjack</Authors>
-    <Version>0.8.7</Version>
+    <Version>0.8.8</Version>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
     <PackageIcon>sqlib.png</PackageIcon>
     <RepositoryUrl>https://github.com/zmjack/SQLib</RepositoryUrl>
