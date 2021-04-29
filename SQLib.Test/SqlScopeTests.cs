@@ -23,48 +23,27 @@ namespace SQLib.Test
             {
                 sqlite.OnExecuted += onExecuted;
 
-                sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({DateTime.Now}, {416L}, {5.21d}, {"Hello"});");
+                sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({DateTime.Now}, {416L}, {5.21d}, {"Hello"}, {"Hello".Bytes()});");
+
                 sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 415, 416, 417 }};").Then(records =>
                 {
                     var record = records.First();
                     Assert.Equal(416L, record["Integer"]);
+                    Assert.Equal(5.21d, record["Real"]);
                 });
-                sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 1, 2, 3, 4 }};").Then(records =>
-                {
-                    Assert.False(records.Any());
-                });
-                sqlite.Sql($"DELETE FROM main;");
-
-                Assert.Equal(new[]
-                {
-                    "INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);",
-                    "SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2);",
-                    "SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2, @p0_3);",
-                    "DELETE FROM main;",
-                }, sqlList);
-
-                trans.Commit();
-            }
-        }
-
-        [Fact]
-        public void Test1()
-        {
-            var sqlList = new List<string>();
-            void onExecuted(SqliteCommand command) => sqlList.Add(command.CommandText);
-
-            using (Test.MutexLock.Begin())
-            using (var sqlite = ApplicationDbScope.UseDefault())
-            {
-                sqlite.OnExecuted += onExecuted;
-
-                sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({DateTime.Now}, {416L}, {5.21d}, {"Hello"});");
                 sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};").Then(records =>
                 {
                     var record = records.First();
                     Assert.Equal(416L, record["Integer"]);
                     Assert.Equal(5.21d, record["Real"]);
                 });
+                sqlite.SqlQuery($"SELECT * FROM main WHERE Blob={"Hello".Bytes()};").Then(records =>
+                {
+                    var record = records.First();
+                    Assert.Equal(416L, record["Integer"]);
+                    Assert.Equal(5.21d, record["Real"]);
+                });
+
                 sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").Then(records =>
                 {
                     var record = records.First();
@@ -74,8 +53,10 @@ namespace SQLib.Test
 
                 Assert.Equal(new[]
                 {
-                    "INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);",
+                    "INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES (@p0, @p1, @p2, @p3, @p4);",
+                    "SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2);",
                     "SELECT * FROM main WHERE Text=@p0;",
+                    "SELECT * FROM main WHERE Blob=@p0;",
                     "SELECT * FROM main WHERE Text=@p0;",
                     "DELETE FROM main;",
                 }, sqlList);

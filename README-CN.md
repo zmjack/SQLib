@@ -61,6 +61,7 @@ dotnet add package SQLib.Sqlite
 | **Integer**      | integer | int      |
 | **Real**         | real    | double   |
 | **Text**         | text    | string   |
+| **Blob**         | blob    | byte[]   |
 
 <br/>
 
@@ -88,14 +89,14 @@ public class ApplicationDbScope : SqliteScope<ApplicationDbScope>
 ```c#
 using (var sqlite = ApplicationDbScope.UseDefault())
 {
-    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"}, {"Hello".Bytes()});");
 }
 ```
 
 将生成以下带有参数的 **SQL** 语句用于查询：
 
 ```sqlite
-INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES (@p0, @p1, @p2, @p3, @p4);
 ```
 
 <br/>
@@ -111,6 +112,8 @@ sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 415, 416, 417 }};
 ```sql
 SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2);
 ```
+
+但是 **字节数组** 是特殊的，它通常用于表示文件，而不被翻译为 **new[] { ... }** 语法。
 
 <br/>
 
@@ -136,6 +139,7 @@ public class Main
     public int Integer { get; set; }
     public double Real { get; set; }
     public string Text { get; set; }
+    public byte[] Blob { get; set; }
 }
 ```
 ```c#
@@ -155,9 +159,9 @@ using (var sqlite = ApplicationDbScope.UseDefault())
     var output = new StringBuilder();
     sqlite.OnExecuted += command => output.AppendLine(command.CommandText);
 
-    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"}, {"Hello".Bytes()});");
 
-    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES (@p0, @p1, @p2, @p3, @p4);
 ", output.ToString());
 }
 ```

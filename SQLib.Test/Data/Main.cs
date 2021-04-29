@@ -11,5 +11,7 @@ namespace SQLib.Test.Data
 
         [Column("Text")]
         public string Plain { get; set; }
+
+        public byte[] Blob { get; set; }
     }
 }

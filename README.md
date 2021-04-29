@@ -61,6 +61,7 @@ The sample database **sqlib.db** table **main** is defined as follows:
 | **Integer**      | integer | int      |
 | **Real**         | real    | double   |
 | **Text**         | text    | string   |
+| **Blob**         | blob    | byte[]   |
 
 <br/>
 
@@ -89,14 +90,14 @@ For example, insert data using the following statement:
 ```c#
 using (var sqlite = ApplicationDbScope.UseDefault())
 {
-    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"}, {"Hello".Bytes()});");
 }
 ```
 
 The following **SQL** statement with parameters will be generated for query:
 
 ```sqlite
-INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES (@p0, @p1, @p2, @p3, @p4);
 ```
 
 <br/>
@@ -112,6 +113,8 @@ The generated SQL:
 ```sql
 SELECT * FROM main WHERE Integer in (@p0_0, @p0_1, @p0_2);
 ```
+
+But **byte array is special** in that they are usually used to represent files, and is not translated as **new[] {...}** syntax.
 
 <br/>
 
@@ -137,6 +140,7 @@ public class Main
     public int Integer { get; set; }
     public double Real { get; set; }
     public string Text { get; set; }
+    public byte[] Blob { get; set; }
 }
 ```
 
@@ -157,9 +161,9 @@ using (var sqlite = ApplicationDbScope.UseDefault())
     var output = new StringBuilder();
     sqlite.OnExecuted += command => output.AppendLine(command.CommandText);
 
-    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"});");
+    sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({creationTime}, {416L}, {5.21d}, {"Hello"}, {"Hello".Bytes()});");
 
-    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text) VALUES (@p0, @p1, @p2, @p3);
+    Assert.Equal(@"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES (@p0, @p1, @p2, @p3, @p4);
 ", output.ToString());
 }
 ```
