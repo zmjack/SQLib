@@ -18,7 +18,7 @@ namespace SQLib
             {
                 ParameterName = parameterName,
                 Value = value,
-                DbType = value.GetType() switch
+                DbType = value?.GetType() switch
                 {
                     Type type when type == typeof(bool) => DbType.Boolean,
                     Type type when type == typeof(byte) => DbType.Byte,
