@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  
+
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net35;net40;net45;net451;net46</TargetFrameworks>
-    <LangVersion>8</LangVersion>
+    <TargetFrameworks>netstandard2.0;net35;net451;net46</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>zmjack</Authors>
     <Description>SQLib is an automatic parameterized SQL authoring tool.</Description>
@@ -12,14 +11,15 @@
     <PackageTags>sql query parameterize</PackageTags>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
-    <Version>0.8.9</Version>
+    <Version>0.9.0</Version>
     <PackageIcon>sqlib.png</PackageIcon>
     <PackageIconUrl />
     <PackageId>SQLib</PackageId>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NStandard" Version="0.6.13" />
+    <PackageReference Include="NStandard" Version="0.14.0" />
   </ItemGroup>
 
   <ItemGroup>

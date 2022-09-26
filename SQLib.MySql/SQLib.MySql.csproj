@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45;net451;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net451;net46</TargetFrameworks>
     <Description>MySql package for SQLib.</Description>
     <Authors>zmjack</Authors>
-    <Version>0.8.9</Version>
+    <Version>0.9.0</Version>
     <PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
     <PackageIcon>sqlib.png</PackageIcon>
     <RepositoryUrl>https://github.com/zmjack/SQLib</RepositoryUrl>
@@ -13,6 +13,7 @@
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
