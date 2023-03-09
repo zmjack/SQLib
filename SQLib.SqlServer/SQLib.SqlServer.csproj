@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'!='net35' and '$(TargetFramework)'!='net40' and '$(TargetFramework)'!='net45' and '$(TargetFramework)'!='net451' and '$(TargetFramework)'!='net46'">
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.1.2" />
   </ItemGroup>
 
   <ItemGroup>
