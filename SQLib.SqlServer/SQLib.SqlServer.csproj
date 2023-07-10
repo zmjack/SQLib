@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net35;net451;net46</TargetFrameworks>
-    <Version>0.11.0</Version>
+    <Version>0.12.0</Version>
     <Authors>zmjack</Authors>
     <Description>SqlServer package for SQLib.</Description>
     <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
