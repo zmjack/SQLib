@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/zmjack/SQLib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>sql query parameterize</PackageTags>
-    <Copyright>Copyright © linqsharp.net 2020-2021</Copyright>
+    <Copyright>Copyright © linqsharp.net 2020</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>preview</LangVersion>

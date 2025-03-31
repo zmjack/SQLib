@@ -5,6 +5,7 @@ using SQLib.Test.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Xunit;
 
 namespace SQLib.Test
@@ -23,28 +24,28 @@ namespace SQLib.Test
             {
                 sqlite.OnExecuted += onExecuted;
 
-                sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({DateTime.Now}, {416L}, {5.21d}, {"Hello"}, {"Hello".Bytes()});");
+                sqlite.Sql($"INSERT INTO main (CreationTime, Integer, Real, Text, Blob) VALUES ({DateTime.Now}, {416L}, {5.21d}, {"Hello"}, {"Hello".Pipe(Encoding.UTF8.GetBytes)});");
 
-                sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 415, 416, 417 }};").Then(records =>
+                sqlite.SqlQuery($"SELECT * FROM main WHERE Integer in {new[] { 415, 416, 417 }};").Pipe(records =>
                 {
                     var record = records.First();
                     Assert.Equal(416L, record["Integer"]);
                     Assert.Equal(5.21d, record["Real"]);
                 });
-                sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};").Then(records =>
+                sqlite.SqlQuery($"SELECT * FROM main WHERE Text={"Hello"};").Pipe(records =>
                 {
                     var record = records.First();
                     Assert.Equal(416L, record["Integer"]);
                     Assert.Equal(5.21d, record["Real"]);
                 });
-                sqlite.SqlQuery($"SELECT * FROM main WHERE Blob={"Hello".Bytes()};").Then(records =>
+                sqlite.SqlQuery($"SELECT * FROM main WHERE Blob={"Hello".Pipe(Encoding.UTF8.GetBytes)};").Pipe(records =>
                 {
                     var record = records.First();
                     Assert.Equal(416L, record["Integer"]);
                     Assert.Equal(5.21d, record["Real"]);
                 });
 
-                sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").Then(records =>
+                sqlite.SqlQuery<Main>($"SELECT * FROM main WHERE Text={"Hello"};").Pipe(records =>
                 {
                     var record = records.First();
                     Assert.Equal(5.21d, record.Real);
