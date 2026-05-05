@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Northwnd;
+using Northwnd.Data;
 using SQLibApp.Data;
 using System;
 using System.Data;
@@ -21,7 +22,7 @@ namespace SQLibApp
                 QueryRegion_EF(1),
             };
 
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            var adapter = new SQLiteDataAdapter();
             Console.WriteLine(regions.All(x => x == "Eastern"));
         }
 

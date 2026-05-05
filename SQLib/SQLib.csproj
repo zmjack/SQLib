@@ -11,7 +11,7 @@
 		<PackageTags>sql query parameterize</PackageTags>
 		<Copyright>Copyright © linqsharp.net 2020</Copyright>
 		<PackageProjectUrl>https://github.com/zmjack/SQLib</PackageProjectUrl>
-		<Version>0.15.0</Version>
+		<Version>0.16.0</Version>
 		<PackageIcon>sqlib.png</PackageIcon>
 		<PackageIconUrl />
 		<PackageId>SQLib</PackageId>
@@ -48,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NStandard" Version="0.90.0" />
+		<PackageReference Include="NStandard" Version="0.110.1" />
 	</ItemGroup>
 
 	<ItemGroup>
